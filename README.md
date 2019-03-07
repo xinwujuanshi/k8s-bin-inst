@@ -305,3 +305,9 @@ root@k8s-master01 ~]# scp -rp k8s-certs-generator/kubernetes/kubelet/*  k8s-node
 
 ~]# kubectl certificate approve CSR_NAME
 
+## 创建coredns
+
+mkdir coredns && cd coredns
+wget https://raw.githubusercontent.com/coredns/deployment/master/kubernetes/coredns.yaml.sed
+wget https://raw.githubusercontent.com/coredns/deployment/master/kubernetes/deploy.sh
+bash deploy.sh -i 10.96.0.10 -r "10.96.0.0/12" -s -t coredns.yaml.sed |kubectl apply -f -
